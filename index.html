@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Smart Procurement</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="container">
+    <a class="navbar-brand" href="index.html">Smart Procurement</a>
+        <div>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard.html">Dashboard</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="signup.html">SIGNUP</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+</head>
+<body><br>
+  <div class="container">
+  <center class="jumbotron">
+  <h2>What is Blockchain?</h2>
+    <p>Blockchain, a revolutionary technology, that would fabricate the global transactions. The application of the same in the field of supply chain and supplier management is what we've aimed for.</p>
+    <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
+      <br>
+      <label for="_address" class="card-title"><h4>Enter Tracking Address</h4></label>
+      <div class="container">
+        <input class="form-control" id="_address" type="text"><br>
+        <button class="btn btn-success" id="button1">Submit</button>
+      <div class="container">
+        <h3 id="instructor1"></h3>
+  </div>
+</div>
+      </div><br>
+    </div><br>
+  </div>
+  </center>
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
+    <div class="card border-secondary mb-3">
+    <div class="card-header">Our Story</div>
+    <div class="card-body"><p class="card-text">Invoke and encourage decentralized system for safer, quicker and spoof free transactions</p><br><br>
+    </div> </div></div>
+    <div class="col-md-4">
+    <div class="card border-secondary mb-3">
+    <div class="card-header">Our Vision</div>
+    <div class="card-body"><p class="card-text">Having a centralised system seems troublesome and causes way too many problems ain't it? Hence we've come up with a Technology to help you out!</p>
+    </div> </div></div>
+  <div class="col-md-4">
+    <div class="card border-secondary mb-3">
+    <div class="card-header">Technology</div>
+    <div class="card-body"><p class="card-text">We've used blockchain Technology and by triggering smart contracts we have developed a simpler solution!</p><br>
+    </div> </div>
+  </div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<script>
+
+    if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+    } else {
+        // set the provider you want from Web3.providers
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    }
+
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+
+    var CoursetroContract = web3.eth.contract([
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tid",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "Pname",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Location",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Status",
+				"type": "string"
+			}
+		],
+		"name": "instructorInfo",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "_tid",
+				"type": "uint256"
+			},
+			{
+				"name": "_Pname",
+				"type": "string"
+			},
+			{
+				"name": "_Description",
+				"type": "string"
+			},
+			{
+				"name": "_Location",
+				"type": "string"
+			},
+			{
+				"name": "_Status",
+				"type": "string"
+			}
+		],
+		"name": "setInstructor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Description",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorDesc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Location",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorLoc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Status",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "count",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "countInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getInstructor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_tid",
+				"type": "uint256"
+			}
+		],
+		"name": "getInstructorById",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "instructorAccts",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+    var Coursetro = CoursetroContract.at('0xbe686d507935ecbc48c4c106a0bb83e66ee88803s'); // 0x12ecc397b392f00ec8ddd33ca605de6a05a7e69d rinkeby
+    console.log(Coursetro);
+
+
+
+    $("#button1").click(function() {
+        $("#loader").show();
+        Coursetro.getInstructor(web3.eth.defaultAccount, $("#_address").val(), (err, res) => {
+            if (err) {
+                $("#loader").hide();
+                console.log(err);
+            }
+            else{
+              $("#instructor1").html('TrackingID: '+res[0]+' Product Name:'+res[1]+' Product Description:'+res[2]+' Location:'+res[3]+' Status:'+res[4] );
+              console.log(res);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

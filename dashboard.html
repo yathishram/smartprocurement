@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SmartProcurement: Dashboard</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+      <div class="container">
+      <a class="navbar-brand" href="index.html">Smart Procurement</a>
+          <div>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="signup.html">SIGNUP</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+</head>
+<body><br>
+
+    <div class="container">
+<img id="loader" src="/img/lg.double-ring-spinner.gif">
+      <center class="jumbotron">
+
+        <h2>Enter Details</h2>
+          <p>Enter the details for the users to track</p>
+        <br>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem;" >
+        <div class="container"><br>
+        <label for="tid" class="card-title"><h5>Tracking ID</h5></label>
+        <input class="form-control" id="tid" type="text"><br>
+
+        <label for="Pname" class="card-title"><h5>Product Name</h5></label>
+        <input class="form-control" id="Pname" type="text"><br>
+        <label for="Description" class="card-title"><h5>Description</h5></label>
+        <input class="form-control" id="Description" type="text"><br>
+
+        <label for="Location" class="card-title"><h5>Location</h5></label>
+        <input class="form-control" id="Location" type="text"><br>
+        <label for="Status" class="card-title"><h5>Status</h5></label>
+        <input class="form-control" id="Status" type="text"><br><br>
+        <button class="btn btn-success btn-lg" id="button">Submit</button>
+      </div><br>
+      </div>
+
+
+      </center>
+
+      <h2 id="instructor"></h2>
+      <span id="insTrans"></span>
+      <hr>
+
+    </div>
+    <li><a href="UPDATES.html">Click here to update details!</a></li>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+        <script>
+
+            if (typeof web3 !== 'undefined') {
+                web3 = new Web3(web3.currentProvider);
+            } else {
+                // set the provider you want from Web3.providers
+                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            }
+
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+
+            var CoursetroContract = web3.eth.contract([
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tid",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "Pname",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Location",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "Status",
+				"type": "string"
+			}
+		],
+		"name": "instructorInfo",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "_tid",
+				"type": "uint256"
+			},
+			{
+				"name": "_Pname",
+				"type": "string"
+			},
+			{
+				"name": "_Description",
+				"type": "string"
+			},
+			{
+				"name": "_Location",
+				"type": "string"
+			},
+			{
+				"name": "_Status",
+				"type": "string"
+			}
+		],
+		"name": "setInstructor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Description",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorDesc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Location",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorLoc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"name": "Status",
+				"type": "string"
+			}
+		],
+		"name": "updateInstructorStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "count",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "countInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getInstructor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_tid",
+				"type": "uint256"
+			}
+		],
+		"name": "getInstructorById",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getInstructors",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "instructorAccts",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+            var Coursetro = CoursetroContract.at('0xbe686d507935ecbc48c4c106a0bb83e66ee88803'); // 0x12ecc397b392f00ec8ddd33ca605de6a05a7e69d rinkeby
+            console.log(Coursetro);
+
+            var instructorEvent = Coursetro.instructorInfo({},'latest');
+
+            instructorEvent.watch(function(error, result) {
+                if (result) {
+                    if (result.blockHash != $("#insTrans").html())
+                        $("#loader").hide();
+
+                    $("#insTrans").html('Block hash: ' + result.blockHash);
+                    $("#instructor").html(result.args._address +' Product name:'+ result.args.Pname +' Product Description:'+ result.args.Description + ' Location: ' + result.args.Location+ ' Status: '+ result.args.Status +' Tid:'+result.args.tid );
+                } else {
+                    $("#loader").hide();
+                }
+            });
+
+
+            $("#button").click(function() {
+                $("#loader").show();
+                Coursetro.setInstructor(web3.eth.defaultAccount, $("#tid").val(), $("#Pname").val(),$("#Description").val(), $("#Location").val(), $("#Status").val(), (err, res) => {
+                    if (err) {
+                        $("#loader").hide();
+                        console.log(err);
+                    }
+                });
+            });
+        </script>
+
+</body>
+</html>
